@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quiz!</title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"> 
+	</script> 
+</head>
+<style>
+	body{
+		font-family: http://www.google.com/fonts#UsePlace:use/Collection:Suranna,helvetica;
+		background-color: #B4CDCD;
+	}
+	#quiz{
+		height: 200px;
+		width: 40%;
+		border: 3px solid black;
+		border-radius: 5px;
+		margin: 0 auto;
+		text-align: center;
+		line-height: 160%;
+		font-size: 20px;
+		background-color: #FFFF99;
+	}
+	#questionText{
+		height: 10px;
+		font-weight: bold;
+	}
+
+	#animate{
+		animation-duration: 2s;
+  		animation-name: slidein;
+	}
+
+	@keyframes slidein {
+	  from {
+	    margin-left: 100%;
+	    width: 300%; 
+	  }
+
+	  to {
+	    margin-left: 0%;
+	    width: 100%;
+	  }
+	}
+	#quiz_status{
+		height: 22px;
+		width: 10%;
+		border: 1px solid black;
+		border-radius: 5px;
+		margin-left: 404px;
+		padding: 3px;
+	}
+	#nextButton{
+		display: block;
+		margin: 0 auto;
+		width: 180px;
+	}
+</style>
+<body>
+
+<div id="quiz_status"></div>
+<div id="animate">
+<div id="quiz"></div>
+</div>
+<button id="nextButton">Next</button>
+<div id="quiz_timer"></div>
+
+<script type="text/javascript">
+
+	var allQuestions = [
+	{
+		question: "How is JavaScript related to the programming language Java?", 
+		choices: ["There is no relation between the two.", "JavaScript is the simpler version of Java.", "Java is the simpler version of JavaScript.", "JavaScript replaced Java."], 
+		correctAnswer:0
+	},
+	{
+		question: "Which is NOT a datatype in JavaScript?",
+		choices: ["A number", "A string", "A script", "A boolean"],
+		correctAnswer:2
+	},
+	{
+		question: "Which tag denotes the JavaScript in the webpage?", 
+		choices: ["script", "js", "javascript", "java"], 
+		correctAnswer:0
+	},
+	{
+		question: "Which is NOT a JavaScript library", 
+		choices: ["jQuery", "MonkeyScript", "Angular", "Ember"], 
+		correctAnswer:1
+	},
+	{
+		question: "Which is not a boolean operator in JavaScript?",
+		choices:["&&", "||", "**", "!"],
+		correctAnswer:2
+	},
+	{
+		question: "Which word denotes the beginning of a function?", 
+		choices: ["func", "beginning", "begin", "function"], 
+		correctAnswer:3
+	},
+	{
+		question : "How do you declare a variable?",
+	choices : ["variable = 0", "var", "new variable foo = 0;", "var foo = 0;"],
+	correctAnswer : 3
+}
+	];
+
+var currentQ = 0;
+var pos = 0;
+var correct = 0;
+
+	/*document.getElementById('quiz').innerHTML = allQuestions[currentQ].question + '<br>' + "<input type='radio' name='choices' value='A'>" + allQuestions[currentQ].choices[0] + '<br>' + "<input type='radio' name='choices' value='B'>" + allQuestions[currentQ].choices[1] + '<br>' + "<input type='radio' name='choices' value='C'>" + allQuestions[currentQ].choices[2] + '<br>' + "<input type='radio' name='choices' value='D'>" + allQuestions[currentQ].choices[3];*/
+	
+
+	function nextQuestion(){
+		if (currentQ < allQuestions.length){
+			document.getElementById('quiz').innerHTML = '<div id="questionText">' + allQuestions[currentQ].question + '</div><br><form name="quizform">' + "<input type='radio' id='choices1' name='choices' value='A'>" + allQuestions[currentQ].choices[0] + '<br>' + "<input type='radio' id='choices2' name='choices' value='B'>" + allQuestions[currentQ].choices[1] + '<br>' + "<input type='radio' id='choices3' name='choices' value='C'>" + allQuestions[currentQ].choices[2] + '<br>' + "<input type='radio' id='choices4' name='choices' value='D'>" + allQuestions[currentQ].choices[3] + '</form>';
+			document.getElementById('quiz_status').innerHTML = "Question " + (currentQ + 1) + " of " + allQuestions.length ;
+		}
+		else{
+			document.getElementById('quiz').innerHTML = "You've reached the end of the quiz! You've answered " + correct + " out of " + allQuestions.length + " questions correctly! <br>That is " + ((correct/allQuestions.length) * 100)+ "%! <br>Keep learning!";
+		}
+	}
+	
+	function checkAnswer(){
+		var choices = document.getElementsByName('choices');
+		var radio1 = document.getElementById('choices1').checked;
+		var radio2 = document.getElementById('choices2').checked;
+		var radio3 = document.getElementById('choices3').checked;
+		var radio4 = document.getElementById('choices4').checked;
+		if((radio1=="")&&(radio2=="")&&(radio3=="")&&(radio4=="")){
+			alert("Please select");
+		}else{
+			for (var i = 0; i < choices.length; i++) {
+				if(choices[i].checked){
+				if
+                   (i === allQuestions[pos].correctAnswer){    
+                        
+                        correct++;
+			}
+		}
+        }
+        pos++;
+        currentQ++;
+		}
+        }
+
+    function timer(){
+    	var totalSeconds = 60;
+    	document.getElementById('quiz_timer').innerHTML = "Time Remaining: " + stotalSeconds + " seconds";
+    	totalSeconds = totalSeconds - 1;
+    	setTimeout("timer", 1000);
+    }
+			
+    $("button").click(function () {
+	$('#quiz').fadeOut();
+	$('#quiz').fadeIn();
+	});
+	document.getElementById('nextButton').addEventListener("click", checkAnswer);
+	document.getElementById('nextButton').addEventListener("click", nextQuestion);
+
+	setTimeout("timer", 1000);
+	nextQuestion();
+</script>
+</body>
+</html>
